@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PulseCare — Smart Health & Doctor Booking</title>
+    <!-- jQuery Mobile 1.4.5 & Custom Healthcare Theme -->
+    <link rel="stylesheet" href="vendor/jquery.mobile.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- jQuery Core & Mobile JS -->
+    <script src="vendor/jquery.min.js"></script>
+    <script src="vendor/jquery.mobile.min.js"></script>
+</head>
+<body>
+
+    <!-- =======================================================================
+         PAGE 1: PATIENT DASHBOARD (#page-home)
+         ======================================================================= -->
+    <div data-role="page" id="page-home" data-theme="a" class="mobile-page">
+        <!-- Slide-out Patient Profile Panel -->
+        <div data-role="panel" id="patient-panel" data-display="overlay" data-theme="b" class="side-panel">
+            <div class="panel-user-header">
+                <div class="user-avatar-med">PB</div>
+                <div class="user-details">
+                    <h3>Punit Bhatarkar</h3>
+                    <p>Health ID: #PC-9042 • Blood: O+</p>
+                </div>
+            </div>
+            <!-- Health Card Vitals -->
+            <div class="panel-vitals-box">
+                <div class="vital-item">
+                    <span class="vital-label">Age / Sex</span>
+                    <strong class="vital-val">21 / Male</strong>
+                </div>
+                <div class="vital-item">
+                    <span class="vital-label">Insurance</span>
+                    <strong class="vital-val" style="color: #38bdf8;">Active (StarCare)</strong>
+                </div>
+                <div class="vital-item">
+                    <span class="vital-label">Allergies</span>
+                    <strong class="vital-val" style="color: #f87171;">Penicillin</strong>
+                </div>
+                <div class="vital-item">
+                    <span class="vital-label">Primary Care</span>
+                    <strong class="vital-val" style="color: #4ade80;">Metro Hospital</strong>
+                </div>
+            </div>
+            <!-- Navigation List -->
+            <ul data-role="listview" data-inset="false" class="panel-nav-list">
+                <li data-icon="home"><a href="#page-home" data-transition="slide">Patient Dashboard</a></li>
+                <li data-icon="bullets"><a href="#page-doctors" data-transition="slide">Find Specialists</a></li>
+                <li data-icon="calendar"><a href="#page-booking" data-transition="slide">Book Appointment</a></li>
+                <li data-icon="heart"><a href="#page-records" data-transition="slide">Medical Records & Rx</a></li>
+                <li data-icon="alert"><a href="#page-emergency" data-transition="slide">Emergency SOS & Clinics</a></li>
+            </ul>
+
+            <!-- Clinical Mode Switch in Panel -->
+            <div class="panel-theme-toggle">
+                <span>Clinical Dark Mode:</span>
+                <button type="button" id="panel-dark-toggle" class="ui-btn ui-mini ui-corner-all">Toggle Theme 🌙</button>
+            </div>
+
+            <div class="panel-footer-note">
+                <p>PulseCare Health Network v2.4</p>
+                <small>FSD Academic Mobile Project • 2026</small>
+            </div>
+        </div>
+
+        <!-- Sticky Header with Dark Mode & Booking Shortcuts -->
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="app-header">
+            <a href="#patient-panel" class="ui-btn ui-btn-left ui-corner-all ui-icon-bars ui-btn-icon-notext header-icon-btn">Menu</a>
+            <h1 class="header-title">Pulse<span>Care</span> 🩺</h1>
+            <div class="ui-btn-right header-actions">
+                <button type="button" id="header-theme-toggle" class="header-action-btn theme-btn" title="Toggle Theme">🌙</button>
+                <a href="#page-booking" class="header-action-btn" data-transition="slide" title="Book Appointment">📅</a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div data-role="main" class="ui-content app-content">
+            <!-- Patient Welcome & Vitals Banner -->
+            <div class="welcome-card">
+                <div class="welcome-top">
+                    <div>
+                        <span class="status-badge">● Health Status: Optimal</span>
+                        <h2>Welcome back, <br>Punit! 👋</h2>
+                    </div>
+                    <div class="heart-pulse-icon">❤️</div>
+                </div>
+                <!-- Real-time Health Metrics Strip -->
+                <div class="ui-grid-b vitals-grid">
+                    <div class="ui-block-a vital-tile">
+                        <span class="v-label">Pulse</span>
+                        <strong class="v-num">72 <span>bpm</span></strong>
+                    </div>
+                    <div class="ui-block-b vital-tile">
+                        <span class="v-label">Blood Press.</span>
+                        <strong class="v-num">120/80</strong>
+                    </div>
+                    <div class="ui-block-c vital-tile">
+                        <span class="v-label">Blood Sugar</span>
+                        <strong class="v-num">95 <span>mg/dL</span></strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Health Triage & Symptom Checker Card -->
+            <div class="symptom-checker-card">
+                <div class="sc-content">
+                    <span class="sc-badge">✨ AI Health Triage</span>
+                    <h3>Feeling Unwell Today?</h3>
+                    <p>Select symptoms for instant clinical guidance & specialist matching.</p>
+                </div>
+                <a href="#popup-symptom-checker" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-mini sc-btn">
+                    Check Symptoms ➔
+                </a>
+            </div>
+
+            <!-- Quick Action: Emergency Ambulance SOS Bar -->
+            <div class="emergency-bar">
+                <div class="emergency-info">
+                    <span class="sos-icon">🚨</span>
+                    <div>
+                        <strong>Emergency SOS Ready</strong>
+                        <p>24x7 Ambulance Dispatch Line</p>
+                    </div>
+                </div>
+                <a href="#page-emergency" data-transition="slide" class="ui-btn ui-mini ui-corner-all sos-call-btn">SOS Call</a>
+            </div>
+
+            <!-- Medical Specialties Grid -->
+            <div class="section-title-row">
+                <h3>Medical Departments</h3>
+                <a href="#page-doctors" data-transition="slide" class="see-all-link">See All</a>
+            </div>
+            <div class="ui-grid-c department-grid">
+                <div class="ui-block-a">
+                    <a href="#page-doctors" data-dept="cardiology" class="dept-card">
+                        <span class="dept-icon">🫀</span>
+                        <span class="dept-name">Cardio</span>
+                    </a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="#page-doctors" data-dept="pediatrics" class="dept-card">
+                        <span class="dept-icon">👶</span>
+                        <span class="dept-name">Pediatrics</span>
+                    </a>
+                </div>
+                <div class="ui-block-c">
+                    <a href="#page-doctors" data-dept="neurology" class="dept-card">
+                        <span class="dept-icon">🧠</span>
+                        <span class="dept-name">Neuro</span>
+                    </a>
+                </div>
+                <div class="ui-block-d">
+                    <a href="#page-doctors" data-dept="orthopedics" class="dept-card">
+                        <span class="dept-icon">🦴</span>
+                        <span class="dept-name">Ortho</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Top Verified Specialists Listview -->
+            <div class="section-title-row" style="margin-top: 1.5rem;">
+                <h3>Available Top Specialists</h3>
+                <span class="live-tag">Verified MDs</span>
+            </div>
+
+            <ul data-role="listview" data-inset="true" class="specialist-listview">
+                <li>
+                    <a href="#popup-doctor-details-home" data-rel="popup" data-position-to="window" data-transition="pop" class="doc-item-link"
+                       data-id="1" data-name="Dr. Marcus Vance, MD" data-spec="Senior Cardiologist" data-exp="14 Years Exp" data-fee="75" data-rating="4.9" data-img="images/doc1.jpg" data-hosp="Metro Heart Institute">
+                        <img src="images/doc1.jpg" alt="Dr. Marcus Vance">
+                        <h2>Dr. Marcus Vance, MD</h2>
+                        <p>Specialist in Cardiovascular Disease & Heart Rhythm</p>
+                        <span class="ui-li-count">$75/visit</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#popup-doctor-details-home" data-rel="popup" data-position-to="window" data-transition="pop" class="doc-item-link"
+                       data-id="2" data-name="Dr. Elena Rostova, MD" data-spec="Chief Pediatrician" data-exp="11 Years Exp" data-fee="60" data-rating="4.8" data-img="images/doc2.jpg" data-hosp="St. Jude Children Care">
+                        <img src="images/doc2.jpg" alt="Dr. Elena Rostova">
+                        <h2>Dr. Elena Rostova, MD</h2>
+                        <p>Infant Care, Child Nutrition & Developmental Health</p>
+                        <span class="ui-li-count">$60/visit</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#popup-doctor-details-home" data-rel="popup" data-position-to="window" data-transition="pop" class="doc-item-link"
+                       data-id="3" data-name="Dr. Julian Thorne, PhD" data-spec="Neurology Specialist" data-exp="16 Years Exp" data-fee="90" data-rating="5.0" data-img="images/doc3.jpg" data-hosp="Apollo Brain Institute">
+                        <img src="images/doc3.jpg" alt="Dr. Julian Thorne">
+                        <h2>Dr. Julian Thorne, PhD</h2>
+                        <p>Neurodegenerative Health, Migraine & Spine Diagnostics</p>
+                        <span class="ui-li-count">$90/visit</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Gesture Navigation Hint -->
+            <div class="swipe-hint">
+                <span>👈 Swipe left to browse the full doctor directory</span>
+            </div>
+        </div>
+
+        <!-- Persistent Bottom Navbar -->
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false" class="app-footer">
+            <div data-role="navbar" class="bottom-navbar">
+                <ul>
+                    <li><a href="#page-home" data-icon="home" class="ui-btn-active ui-state-persist">Home</a></li>
+                    <li><a href="#page-doctors" data-icon="bullets" data-transition="slide">Doctors</a></li>
+                    <li><a href="#page-booking" data-icon="calendar" data-transition="slide">Book Appt</a></li>
+                    <li><a href="#page-records" data-icon="heart" data-transition="slide">Records</a></li>
+                    <li><a href="#page-emergency" data-icon="alert" data-transition="slide">SOS</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Doctor Details Popup (Scoped to Page 1) -->
+        <div data-role="popup" id="popup-doctor-details-home" data-theme="a" data-overlay-theme="b" class="ui-content mobile-popup doc-popup">
+            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            <div class="doc-popup-header">
+                <img class="doc-popup-img" src="images/doc1.jpg" alt="Doctor Photo">
+                <div>
+                    <h3 class="doc-popup-name">Dr. Marcus Vance</h3>
+                    <p class="doc-popup-spec">Cardiology</p>
+                    <div class="doc-badge-pill">★ <span class="doc-popup-rating">4.9</span> • <span class="doc-popup-exp">14 Yrs</span></div>
+                </div>
+            </div>
+            <div class="doc-popup-body">
+                <div class="detail-row"><span>Affiliated Hospital:</span> <strong class="doc-popup-hosp">Metro Heart Institute</strong></div>
+                <div class="detail-row"><span>Consultation Fee:</span> <strong class="doc-popup-fee" style="color: #0284c7;">$75</strong></div>
+                <div class="detail-row"><span>Next Available:</span> <strong style="color: #10b981;">Today, 3:30 PM</strong></div>
+            </div>
+            <a href="#page-booking" id="popup-book-direct-home" class="ui-btn ui-btn-b ui-corner-all doc-book-btn">
+                Select & Proceed to Booking ➔
+            </a>
+        </div>
+
+        <!-- AI Symptom Assessment Popup (Scoped to Page 1) -->
+        <div data-role="popup" id="popup-symptom-checker" data-theme="a" data-overlay-theme="b" class="ui-content mobile-popup symptom-popup">
+            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            <div class="symptom-popup-header">
+                <span class="ai-sparkle">🩺</span>
+                <h3>AI Clinical Symptom Triage</h3>
+                <p>Tap your symptoms for instant specialist recommendation:</p>
+            </div>
+            
+            <div class="symptom-chips-container">
+                <button type="button" class="symp-chip" data-spec="cardio" data-doc="Dr. Marcus Vance, MD">🫀 Chest Heaviness</button>
+                <button type="button" class="symp-chip" data-spec="pediatrics" data-doc="Dr. Elena Rostova, MD">👶 High Fever</button>
+                <button type="button" class="symp-chip" data-spec="neuro" data-doc="Dr. Julian Thorne, PhD">🧠 Severe Migraine</button>
+                <button type="button" class="symp-chip" data-spec="ortho" data-doc="Dr. Sarah Jenkins, MD">🦴 Knee / Joint Pain</button>
+                <button type="button" class="symp-chip" data-spec="dermatology" data-doc="Dr. Robert Chen, MD">🧴 Skin Flare-up</button>
+                <button type="button" class="symp-chip" data-spec="general" data-doc="Dr. Ananya Sharma, MD">🌡️ Cough & Weakness</button>
+            </div>
+
+            <!-- Dynamic Triage Output Card -->
+            <div class="triage-result-card" id="triage-result-box">
+                <div class="triage-level"><span id="triage-dot">🟢</span> Triage Level: <strong id="triage-level-text">Routine / Standard</strong></div>
+                <p id="triage-recommendation">Tap a symptom above to get instant clinical guidance.</p>
+                <div class="triage-matched-spec" id="triage-matched-spec" style="display:none;">
+                    Suggested Specialist: <strong id="triage-doctor-target" style="color: #0284c7;">Senior Cardiologist</strong>
+                </div>
+            </div>
+
+            <button type="button" id="triage-book-btn" class="ui-btn ui-btn-b ui-corner-all" style="display:none; margin-top: 0.75rem;">
+                Book Suggested Doctor ➔
+            </button>
+        </div>
+    </div>
+
+    <!-- =======================================================================
+         PAGE 2: FILTERABLE DOCTORS DIRECTORY (#page-doctors)
+         ======================================================================= -->
+    <div data-role="page" id="page-doctors" data-theme="a" class="mobile-page">
+        <!-- Header -->
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="app-header">
+            <a href="#page-home" data-transition="slide" data-direction="reverse" class="ui-btn ui-btn-left ui-corner-all ui-icon-arrow-l ui-btn-icon-notext header-icon-btn">Back</a>
+            <h1 class="header-title">Specialist <span>Directory</span></h1>
+            <a href="#page-booking" class="ui-btn ui-btn-right ui-corner-all ui-icon-calendar ui-btn-icon-notext header-icon-btn" data-transition="slide">Book</a>
+        </div>
+
+        <!-- Main Content -->
+        <div data-role="main" class="ui-content app-content">
+            <!-- Category Filter Tabs (jQuery Mobile Navbar) -->
+            <div data-role="navbar" class="dept-filter-navbar">
+                <ul>
+                    <li><a href="#" class="filter-btn ui-btn-active" data-dept="all">All Docs</a></li>
+                    <li><a href="#" class="filter-btn" data-dept="cardio">Cardio</a></li>
+                    <li><a href="#" class="filter-btn" data-dept="pediatrics">Pediatric</a></li>
+                    <li><a href="#" class="filter-btn" data-dept="neuro">Neuro</a></li>
+                </ul>
+            </div>
+
+            <!-- Filterable Search Listview (Core jQuery Mobile Feature) -->
+            <ul data-role="listview" data-filter="true" data-filter-placeholder="Search doctors by name, hospital, illness..." data-inset="true" id="full-doctor-listview">
+                <!-- Doc 1 -->
+                <li data-dept="cardio">
+                    <a href="#popup-doctor-details-menu" data-rel="popup" data-position-to="window" data-transition="pop" class="doc-item-link"
+                       data-id="1" data-name="Dr. Marcus Vance, MD" data-spec="Cardiovascular Surgery" data-exp="14 Years Exp" data-fee="75" data-rating="4.9" data-img="images/doc1.jpg" data-hosp="Metro Heart Institute">
+                        <img src="images/doc1.jpg" alt="Doctor">
+                        <h2>Dr. Marcus Vance, MD</h2>
+                        <p>Metro Heart Institute • Heart Failure & Angiogram</p>
+                        <span class="ui-li-count">$75</span>
+                    </a>
+                </li>
+                <!-- Doc 2 -->
+                <li data-dept="pediatrics">
+                    <a href="#popup-doctor-details-menu" data-rel="popup" data-position-to="window" data-transition="pop" class="doc-item-link"
+                       data-id="2" data-name="Dr. Elena Rostova, MD" data-spec="Pediatric Critical Care" data-exp="11 Years Exp" data-fee="60" data-rating="4.8" data-img="images/doc2.jpg" data-hosp="St. Jude Children Hospital">
+                        <img src="images/doc2.jpg" alt="Doctor">
+                        <h2>Dr. Elena Rostova, MD</h2>
+                        <p>St. Jude Hospital • Newborn Care & Vaccination</p>
+                        <span class="ui-li-count">$60</span>
+                    </a>
+                </li>
+                <!-- Doc 3 -->
+                <li data-dept="neuro">
+                    <a href="#popup-doctor-details-menu" data-rel="popup" data-position-to="window" data-transition="pop" class="doc-item-link"
+                       data-id="3" data-name="Dr. Julian Thorne, PhD" data-spec="Neurology & Spine" data-exp="16 Years Exp" data-fee="90" data-rating="5.0" data-img="images/doc3.jpg" data-hosp="Apollo Brain Institute">
+                        <img src="images/doc3.jpg" alt="Doctor">
+                        <h2>Dr. Julian Thorne, PhD</h2>
+                        <p>Apollo Brain Institute • Epilepsy & Spinal Care</p>
+                        <span class="ui-li-count">$90</span>
+                    </a>
+                </li>
+                <!-- Doc 4 -->
+                <li data-dept="ortho">
+                    <a href="#popup-doctor-details-menu" data-rel="popup" data-position-to="window" data-transition="pop" class="doc-item-link"
+                       data-id="4" data-name="Dr. Sarah Jenkins, MD" data-spec="Orthopedic Surgery" data-exp="9 Years Exp" data-fee="65" data-rating="4.7" data-img="images/doc4.jpg" data-hosp="City Joint & Bone Center">
+                        <img src="images/doc4.jpg" alt="Doctor">
+                        <h2>Dr. Sarah Jenkins, MD</h2>
+                        <p>City Joint Center • Sports Injuries & Knee Arthroscopy</p>
+                        <span class="ui-li-count">$65</span>
+                    </a>
+                </li>
+                <!-- Doc 5 -->
+                <li data-dept="dermatology">
+                    <a href="#popup-doctor-details-menu" data-rel="popup" data-position-to="window" data-transition="pop" class="doc-item-link"
+                       data-id="5" data-name="Dr. Robert Chen, MD" data-spec="Clinical Dermatology" data-exp="8 Years Exp" data-fee="55" data-rating="4.9" data-img="images/doc5.jpg" data-hosp="Skin & Laser Medical Hub">
+                        <img src="images/doc5.jpg" alt="Doctor">
+                        <h2>Dr. Robert Chen, MD</h2>
+                        <p>Skin Medical Hub • Eczema, Acne & Laser Therapy</p>
+                        <span class="ui-li-count">$55</span>
+                    </a>
+                </li>
+                <!-- Doc 6 -->
+                <li data-dept="general">
+                    <a href="#popup-doctor-details-menu" data-rel="popup" data-position-to="window" data-transition="pop" class="doc-item-link"
+                       data-id="6" data-name="Dr. Ananya Sharma, MD" data-spec="Internal Medicine" data-exp="12 Years Exp" data-fee="50" data-rating="4.8" data-img="images/doc6.jpg" data-hosp="Sunrise Wellness Clinic">
+                        <img src="images/doc6.jpg" alt="Doctor">
+                        <h2>Dr. Ananya Sharma, MD</h2>
+                        <p>Sunrise Clinic • Diabetes, Hypertension & Routine Checkup</p>
+                        <span class="ui-li-count">$50</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Persistent Bottom Navbar -->
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false" class="app-footer">
+            <div data-role="navbar" class="bottom-navbar">
+                <ul>
+                    <li><a href="#page-home" data-icon="home" data-transition="slide" data-direction="reverse">Home</a></li>
+                    <li><a href="#page-doctors" data-icon="bullets" class="ui-btn-active ui-state-persist">Doctors</a></li>
+                    <li><a href="#page-booking" data-icon="calendar" data-transition="slide">Book Appt</a></li>
+                    <li><a href="#page-records" data-icon="heart" data-transition="slide">Records</a></li>
+                    <li><a href="#page-emergency" data-icon="alert" data-transition="slide">SOS</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Doctor Details Popup (Scoped to Page 2) -->
+        <div data-role="popup" id="popup-doctor-details-menu" data-theme="a" data-overlay-theme="b" class="ui-content mobile-popup doc-popup">
+            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            <div class="doc-popup-header">
+                <img class="doc-popup-img" src="images/doc1.jpg" alt="Doctor Photo">
+                <div>
+                    <h3 class="doc-popup-name">Dr. Marcus Vance</h3>
+                    <p class="doc-popup-spec">Cardiology</p>
+                    <div class="doc-badge-pill">★ <span class="doc-popup-rating">4.9</span> • <span class="doc-popup-exp">14 Yrs</span></div>
+                </div>
+            </div>
+            <div class="doc-popup-body">
+                <div class="detail-row"><span>Affiliated Hospital:</span> <strong class="doc-popup-hosp">Metro Heart Institute</strong></div>
+                <div class="detail-row"><span>Consultation Fee:</span> <strong class="doc-popup-fee" style="color: #0284c7;">$75</strong></div>
+                <div class="detail-row"><span>Next Available:</span> <strong style="color: #10b981;">Today, 3:30 PM</strong></div>
+            </div>
+            <a href="#page-booking" id="popup-book-direct-menu" class="ui-btn ui-btn-b ui-corner-all doc-book-btn">
+                Select & Proceed to Booking ➔
+            </a>
+        </div>
+    </div>
+
+    <!-- =======================================================================
+         PAGE 3: INTERACTIVE APPOINTMENT BOOKING FORM (#page-booking)
+         ======================================================================= -->
+    <div data-role="page" id="page-booking" data-theme="a" class="mobile-page">
+        <!-- Header -->
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="app-header">
+            <a href="#page-doctors" data-transition="slide" data-direction="reverse" class="ui-btn ui-btn-left ui-corner-all ui-icon-arrow-l ui-btn-icon-notext header-icon-btn">Back</a>
+            <h1 class="header-title">Schedule <span>Visit</span></h1>
+        </div>
+
+        <!-- Main Content -->
+        <div data-role="main" class="ui-content app-content">
+            <!-- Selected Doctor Summary Card -->
+            <div class="selected-doc-card">
+                <div class="doc-mini-avatar" id="booking-doc-avatar">🩺</div>
+                <div class="doc-mini-info">
+                    <h4 id="booking-doc-name">Dr. Marcus Vance, MD</h4>
+                    <span id="booking-doc-spec">Cardiovascular Surgery • $75 base fee</span>
+                </div>
+            </div>
+
+            <!-- Booking Form With Mobile Widgets -->
+            <div class="form-card">
+                <h3>Appointment Preferences</h3>
+
+                <!-- Flipswitch: In-Clinic vs Telehealth Video -->
+                <div class="ui-field-contain">
+                    <label for="consult-mode-switch"><strong>Consultation Mode:</strong></label>
+                    <select id="consult-mode-switch" data-role="flipswitch" data-theme="b">
+                        <option value="telehealth">Video Call</option>
+                        <option value="inclinic" selected="">In-Clinic</option>
+                    </select>
+                </div>
+
+                <!-- Patient Name Input -->
+                <div class="ui-field-contain">
+                    <label for="patient-name">Patient Name:</label>
+                    <input type="text" id="patient-name" value="Punit Bhatarkar">
+                </div>
+
+                <!-- Patient Age Slider (jQuery Mobile Slider Widget) -->
+                <div class="ui-field-contain">
+                    <label for="patient-age-slider">Patient Age (Years):</label>
+                    <input type="range" id="patient-age-slider" value="21" min="1" max="95" step="1" data-highlight="true">
+                </div>
+
+                <!-- Interactive Date Selector Chips -->
+                <div class="form-section-label">Select Date:</div>
+                <div class="date-chips-row">
+                    <button type="button" class="date-chip-btn active" data-date="Tomorrow, 16 Oct">Tomorrow<br><strong>16 Oct</strong></button>
+                    <button type="button" class="date-chip-btn" data-date="Fri, 17 Oct">Friday<br><strong>17 Oct</strong></button>
+                    <button type="button" class="date-chip-btn" data-date="Sat, 18 Oct">Saturday<br><strong>18 Oct</strong></button>
+                    <button type="button" class="date-chip-btn" data-date="Mon, 20 Oct">Monday<br><strong>20 Oct</strong></button>
+                </div>
+
+                <!-- Interactive Time Slot Pills -->
+                <div class="form-section-label" style="margin-top: 0.9rem;">Available Time Slots:</div>
+                <div class="time-slots-grid">
+                    <button type="button" class="time-slot-btn" data-time="09:30 AM">09:30 AM</button>
+                    <button type="button" class="time-slot-btn" data-time="11:00 AM">11:00 AM</button>
+                    <button type="button" class="time-slot-btn active" data-time="02:30 PM">02:30 PM</button>
+                    <button type="button" class="time-slot-btn" data-time="04:15 PM">04:15 PM</button>
+                    <button type="button" class="time-slot-btn" data-time="06:00 PM">06:00 PM</button>
+                </div>
+
+                <!-- Insurance Coverage Radio Buttons (jQuery Mobile Controlgroup) -->
+                <fieldset data-role="controlgroup" data-mini="true" style="margin-top: 1rem;">
+                    <legend><strong>Insurance / Payment Scheme:</strong></legend>
+                    <input type="radio" name="insurance-type" id="ins-starcare" value="starcare" checked="checked">
+                    <label for="ins-starcare">StarCare Health Insurance (Co-Pay $15)</label>
+                    <input type="radio" name="insurance-type" id="ins-student" value="student">
+                    <label for="ins-student">Campus Student Wellness Discount (30% off)</label>
+                    <input type="radio" name="insurance-type" id="ins-self" value="self">
+                    <label for="ins-self">Self Pay / UPI Direct</label>
+                </fieldset>
+
+                <!-- Dynamic Bill / Co-pay Calculation Breakdown -->
+                <div class="bill-summary">
+                    <div class="bill-row"><span>Physician Base Fee:</span><span id="bill-base-fee">$75.00</span></div>
+                    <div class="bill-row"><span>Hospital Facility Surcharge:</span><span id="bill-facility">$10.00</span></div>
+                    <div class="bill-row"><span>Insurance Coverage:</span><span id="bill-discount" style="color: #10b981;">-$70.00</span></div>
+                    <div class="bill-divider"></div>
+                    <div class="bill-row total"><span>Total Payable Co-Pay:</span><span id="bill-total" style="color: #0284c7;">$15.00</span></div>
+                </div>
+
+                <!-- Confirm Button -->
+                <button type="button" id="confirm-booking-btn" class="ui-btn ui-btn-b ui-corner-all book-action-btn">
+                    Confirm Appointment ➔
+                </button>
+            </div>
+        </div>
+
+        <!-- Persistent Bottom Navbar -->
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false" class="app-footer">
+            <div data-role="navbar" class="bottom-navbar">
+                <ul>
+                    <li><a href="#page-home" data-icon="home" data-transition="slide" data-direction="reverse">Home</a></li>
+                    <li><a href="#page-doctors" data-icon="bullets" data-transition="slide" data-direction="reverse">Doctors</a></li>
+                    <li><a href="#page-booking" data-icon="calendar" class="ui-btn-active ui-state-persist">Book Appt</a></li>
+                    <li><a href="#page-records" data-icon="heart" data-transition="slide">Records</a></li>
+                    <li><a href="#page-emergency" data-icon="alert" data-transition="slide">SOS</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Professional Boarding Pass & QR Code Popup (Inside Page 3) -->
+        <div data-role="popup" id="popup-appointment-success" data-theme="a" data-overlay-theme="b" class="ui-content mobile-popup booking-success-popup">
+            <div class="success-icon-med">🎉</div>
+            <h3>Appointment Confirmed!</h3>
+            <p>Your clinical consultation pass has been generated.</p>
+            
+            <!-- Real Digital Medical Boarding Pass with QR & Barcode -->
+            <div class="digital-boarding-pass">
+                <div class="pass-header-strip">
+                    <span>PULSECARE CLINICAL PASS</span>
+                    <strong class="token-code-tag">TOKEN #MED-8492</strong>
+                </div>
+                
+                <div class="pass-body-grid">
+                    <div>
+                        <span class="p-sub">Patient</span>
+                        <strong id="pass-patient">Punit Bhatarkar</strong>
+                    </div>
+                    <div>
+                        <span class="p-sub">Doctor</span>
+                        <strong id="pass-doc">Dr. Marcus Vance, MD</strong>
+                    </div>
+                    <div>
+                        <span class="p-sub">Date & Slot</span>
+                        <strong id="pass-time">Tomorrow, 02:30 PM</strong>
+                    </div>
+                    <div>
+                        <span class="p-sub">Type</span>
+                        <strong id="pass-mode" style="color: #0284c7;">In-Clinic</strong>
+                    </div>
+                </div>
+
+                <!-- SVG QR Code -->
+                <div class="pass-qr-wrap">
+                    <svg viewBox="0 0 100 100" class="qr-svg-graphic">
+                        <rect width="100" height="100" fill="#ffffff" rx="6"/>
+                        <rect x="8" y="8" width="26" height="26" fill="#0f172a" rx="4"/>
+                        <rect x="12" y="12" width="18" height="18" fill="#ffffff" rx="2"/>
+                        <rect x="16" y="16" width="10" height="10" fill="#0284c7" rx="1"/>
+                        <rect x="66" y="8" width="26" height="26" fill="#0f172a" rx="4"/>
+                        <rect x="70" y="12" width="18" height="18" fill="#ffffff" rx="2"/>
+                        <rect x="74" y="16" width="10" height="10" fill="#0284c7" rx="1"/>
+                        <rect x="8" y="66" width="26" height="26" fill="#0f172a" rx="4"/>
+                        <rect x="12" y="70" width="18" height="18" fill="#ffffff" rx="2"/>
+                        <rect x="16" y="74" width="10" height="10" fill="#0284c7" rx="1"/>
+                        <circle cx="48" cy="18" r="3.5" fill="#0f172a"/>
+                        <circle cx="56" cy="22" r="3" fill="#0284c7"/>
+                        <circle cx="46" cy="36" r="4" fill="#0f172a"/>
+                        <circle cx="24" cy="48" r="3.5" fill="#0f172a"/>
+                        <circle cx="38" cy="50" r="3" fill="#0284c7"/>
+                        <circle cx="52" cy="50" r="4.5" fill="#0284c7"/>
+                        <circle cx="68" cy="48" r="3.5" fill="#0f172a"/>
+                        <circle cx="82" cy="46" r="3" fill="#0f172a"/>
+                        <circle cx="46" cy="68" r="3.5" fill="#0284c7"/>
+                        <circle cx="60" cy="74" r="3" fill="#0f172a"/>
+                        <circle cx="76" cy="76" r="3.5" fill="#0284c7"/>
+                        <circle cx="52" cy="86" r="3.5" fill="#0f172a"/>
+                    </svg>
+                    <div class="pass-barcode-lines">
+                        <div class="barcode-graphic"></div>
+                        <span class="barcode-text">* PC-8492-MED-PASS *</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pass Action Buttons -->
+            <button type="button" class="ui-btn ui-mini ui-corner-all wallet-btn" onclick="alert('✅ Digital Clinical Pass synchronized with Apple / Google Wallet!');">
+                📲 Add to Apple / Google Wallet
+            </button>
+            <a href="#page-records" data-transition="slide" class="ui-btn ui-btn-b ui-corner-all" style="margin-top: 0.5rem;">View Medical Records</a>
+            <a href="#page-home" data-transition="slide" data-direction="reverse" class="ui-btn ui-corner-all">Return to Home</a>
+        </div>
+    </div>
+
+    <!-- =======================================================================
+         PAGE 4: MEDICAL RECORDS & DAILY HEALTH VAULT (#page-records)
+         ======================================================================= -->
+    <div data-role="page" id="page-records" data-theme="a" class="mobile-page">
+        <!-- Header -->
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="app-header">
+            <a href="#page-home" data-transition="slide" data-direction="reverse" class="ui-btn ui-btn-left ui-corner-all ui-icon-arrow-l ui-btn-icon-notext header-icon-btn">Back</a>
+            <h1 class="header-title">Health <span>Records</span></h1>
+        </div>
+
+        <!-- Main Content -->
+        <div data-role="main" class="ui-content app-content">
+            <!-- Patient Health ID Card -->
+            <div class="digital-id-card">
+                <div class="id-top">
+                    <div>
+                        <span class="id-org">PulseCare Health Pass</span>
+                        <h4>Punit Manoj Bhatarkar</h4>
+                    </div>
+                    <span class="chip-icon">💳</span>
+                </div>
+                <div class="id-meta">
+                    <div><span>DOB:</span> 15/08/2005</div>
+                    <div><span>Blood:</span> O Positive</div>
+                    <div><span>Status:</span> Fully Vaccinated ✓</div>
+                </div>
+            </div>
+
+            <!-- Daily Medication Adherence Tracker -->
+            <div class="tracker-card">
+                <div class="tracker-header">
+                    <h4>💊 Today's Medication Tracker</h4>
+                    <span class="tracker-percent" id="med-percent">50% Taken</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="med-progress-bar" style="width: 50%;"></div>
+                </div>
+                <div class="med-checklist">
+                    <label class="med-item done">
+                        <input type="checkbox" checked="checked" class="med-toggle" data-val="50">
+                        <span>Amoxicillin 500mg • Morning (Taken 8:30 AM)</span>
+                    </label>
+                    <label class="med-item" id="med-item-evening">
+                        <input type="checkbox" class="med-toggle" data-val="50">
+                        <span>Amoxicillin 500mg • Evening (Due 8:30 PM)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Hydration Goal Widget -->
+            <div class="water-card">
+                <div class="water-info">
+                    <span class="water-icon">💧</span>
+                    <div>
+                        <h4>Hydration Tracker</h4>
+                        <p><strong id="water-current">1750</strong> / 2500 ml Goal (70%)</p>
+                    </div>
+                </div>
+                <button type="button" id="water-add-btn" class="ui-btn ui-mini ui-corner-all water-btn">+250ml Glass</button>
+            </div>
+
+            <!-- Collapsible Accordion (Core jQuery Mobile Feature) -->
+            <div class="section-title-row" style="margin-top: 1.25rem;">
+                <h3>Digital Medical Vault</h3>
+            </div>
+
+            <div data-role="collapsibleset" data-theme="a" data-content-theme="a" data-iconpos="right">
+                <!-- Accordion 1: Active Prescriptions -->
+                <div data-role="collapsible" data-collapsed="false">
+                    <h4>📋 Doctor Clinical Notes & Rx</h4>
+                    <ul data-role="listview" data-inset="false">
+                        <li>
+                            <h2>Amoxicillin 500mg (Antibiotic)</h2>
+                            <p>Prescribed by Dr. Marcus Vance • 1 capsule after food</p>
+                            <span class="ui-li-count">Day 4 of 7</span>
+                        </li>
+                        <li>
+                            <h2>Vitamin D3 60,000 IU (Weekly)</h2>
+                            <p>Prescribed by Dr. Ananya Sharma • With warm milk</p>
+                            <span class="ui-li-count">Week 2</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Accordion 2: Diagnostic Lab Reports -->
+                <div data-role="collapsible">
+                    <h4>🧪 Recent Diagnostic Lab Reports</h4>
+                    <p><strong>Complete Blood Count (CBC)</strong> — Normal Range (Verified 10 Oct 2026)</p>
+                    <p><strong>Lipid Profile Screen</strong> — Total Cholesterol 168 mg/dL (Desirable)</p>
+                    <p><strong>Fasting Blood Glucose</strong> — 92 mg/dL (Normal)</p>
+                    <button type="button" class="ui-btn ui-mini ui-corner-all ui-btn-b" onclick="alert('PDF Diagnostic Laboratory Report sent to your registered student email!');">
+                        📥 Download Full Laboratory PDF
+                    </button>
+                </div>
+
+                <!-- Accordion 3: Vaccine Passport -->
+                <div data-role="collapsible">
+                    <h4>🛡️ Immunization & Vaccine Logs</h4>
+                    <ul data-role="listview" data-inset="false">
+                        <li>
+                            <h2>COVID-19 Spikevax Booster</h2>
+                            <p>Batch #MOD-89112 • Verified by Health Ministry</p>
+                            <span class="ui-li-count">Valid</span>
+                        </li>
+                        <li>
+                            <h2>Hepatitis B Recombinant</h2>
+                            <p>Completed 3-Dose Pediatric Course</p>
+                            <span class="ui-li-count">Lifetime</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Persistent Bottom Navbar -->
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false" class="app-footer">
+            <div data-role="navbar" class="bottom-navbar">
+                <ul>
+                    <li><a href="#page-home" data-icon="home" data-transition="slide" data-direction="reverse">Home</a></li>
+                    <li><a href="#page-doctors" data-icon="bullets" data-transition="slide" data-direction="reverse">Doctors</a></li>
+                    <li><a href="#page-booking" data-icon="calendar" data-transition="slide">Book Appt</a></li>
+                    <li><a href="#page-records" data-icon="heart" class="ui-btn-active ui-state-persist">Records</a></li>
+                    <li><a href="#page-emergency" data-icon="alert" data-transition="slide">SOS</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- =======================================================================
+         PAGE 5: EMERGENCY SOS & 24/7 CLINICS (#page-emergency)
+         ======================================================================= -->
+    <div data-role="page" id="page-emergency" data-theme="a" class="mobile-page">
+        <!-- Header -->
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" class="app-header emergency-header">
+            <a href="#page-home" data-transition="slide" data-direction="reverse" class="ui-btn ui-btn-left ui-corner-all ui-icon-arrow-l ui-btn-icon-notext header-icon-btn">Back</a>
+            <h1 class="header-title">Emergency <span>SOS 🚨</span></h1>
+        </div>
+
+        <!-- Main Content -->
+        <div data-role="main" class="ui-content app-content">
+            <!-- Panic Button Call Card -->
+            <div class="sos-card" id="sos-main-card">
+                <div class="sos-pulse-ring">🚨</div>
+                <h2>Emergency Ambulance</h2>
+                <p>GPS location auto-shared with nearest paramedic unit.</p>
+                <button type="button" id="sos-dispatch-btn" class="ui-btn ui-btn-b call-now-btn">
+                    📞 Dispatch Ambulance (108 / 911)
+                </button>
+            </div>
+
+            <!-- Live Simulated Ambulance Radar Card (Hidden until dispatched) -->
+            <div class="ambulance-live-radar" id="ambulance-radar-card" style="display:none;">
+                <div class="radar-top">
+                    <span class="live-dot-pulse">● LIVE DISPATCH</span>
+                    <strong class="radar-eta">ETA: <span id="radar-timer">5:42</span> mins</strong>
+                </div>
+                <div class="radar-body">
+                    <div class="radar-vehicle-icon">🚑</div>
+                    <div class="radar-vehicle-details">
+                        <h4>Unit #AMB-104 (Advanced Life Support)</h4>
+                        <p>Driver: <strong>Rajesh Kumar</strong> (Paramedic Certified)</p>
+                        <p>Speed: <strong>52 km/h</strong> • Siren: Active 🔊</p>
+                    </div>
+                </div>
+                <div class="radar-actions">
+                    <button type="button" class="ui-btn ui-mini ui-corner-all" onclick="alert('📞 Connecting to Paramedic Officer Rajesh Kumar...');">Call Paramedic</button>
+                    <button type="button" class="ui-btn ui-mini ui-corner-all ui-btn-b" onclick="alert('📍 Live GPS Tracking link copied to clipboard!');">Share GPS Link</button>
+                </div>
+            </div>
+
+            <!-- Nearby 24/7 Trauma Centers -->
+            <div class="section-title-row">
+                <h3>Nearest 24/7 Emergency Centers</h3>
+            </div>
+            <ul data-role="listview" data-inset="true">
+                <li>
+                    <a href="tel:911">
+                        <h2>Apollo Critical Care Hospital</h2>
+                        <p>1.2 km away • 12 ER ICU Beds Available</p>
+                        <span class="ui-li-count">Open 24/7</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="tel:911">
+                        <h2>City Metro Trauma Center</h2>
+                        <p>2.8 km away • Cardiac Resuscitation Unit</p>
+                        <span class="ui-li-count">Open 24/7</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- First Aid Protocol Collapsible -->
+            <div data-role="collapsible" data-theme="a" data-content-theme="a" style="margin-top: 1rem;">
+                <h4>🩹 Basic Emergency First-Aid Guidelines</h4>
+                <p><strong>Severe Bleeding:</strong> Apply direct, firm pressure with a clean cloth. Elevate the wounded area.</p>
+                <p><strong>Fainting / Shock:</strong> Lay patient flat on their back, elevate legs 12 inches, and loosen tight clothing.</p>
+                <p><strong>Chest Pain:</strong> Sit patient in a comfortable half-sitting position and call emergency dispatch immediately.</p>
+            </div>
+        </div>
+
+        <!-- Persistent Bottom Navbar -->
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false" class="app-footer">
+            <div data-role="navbar" class="bottom-navbar">
+                <ul>
+                    <li><a href="#page-home" data-icon="home" data-transition="slide" data-direction="reverse">Home</a></li>
+                    <li><a href="#page-doctors" data-icon="bullets" data-transition="slide" data-direction="reverse">Doctors</a></li>
+                    <li><a href="#page-booking" data-icon="calendar" data-transition="slide" data-direction="reverse">Book Appt</a></li>
+                    <li><a href="#page-records" data-icon="heart" data-transition="slide" data-direction="reverse">Records</a></li>
+                    <li><a href="#page-emergency" data-icon="alert" class="ui-btn-active ui-state-persist">SOS</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- App JavaScript Logic -->
+    <script src="js/app.js"></script>
+</body>
+</html>

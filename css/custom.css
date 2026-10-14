@@ -1,0 +1,1243 @@
+/* ==========================================================================
+   PULSECARE MOBILE — Modern Touch Polish for jQuery Mobile 1.4.5
+   FSD Assignment 6: Smart Healthcare & Doctor Booking Mobile App
+   ========================================================================== */
+
+:root {
+    --brand-primary: #0284c7;
+    --brand-primary-dark: #0369a1;
+    --brand-teal: #0f766e;
+    --brand-emerald: #10b981;
+    --brand-rose: #f43f5e;
+    --brand-dark: #0f172a;
+    --brand-surface: #1e293b;
+    --text-primary: #0f172a;
+    --text-muted: #64748b;
+    --bg-canvas: #f8fafc;
+    --font-stack: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Global Font Override */
+body, .ui-page, .ui-header, .ui-content, .ui-footer, input, button, select, textarea {
+    font-family: var(--font-stack) !important;
+}
+
+/* Desktop Presentation Simulator */
+body.ui-mobile-viewport,
+.ui-mobile-viewport {
+    background-color: #0b0f19 !important;
+    margin: 0;
+    padding: 0;
+}
+
+@media (min-width: 600px) {
+    .mobile-page {
+        max-width: 440px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        left: 0 !important;
+        right: 0 !important;
+        min-height: 100vh !important;
+        box-shadow: 0 0 45px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
+        background-color: #ffffff !important;
+    }
+
+    .app-header, .app-footer {
+        max-width: 440px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+}
+
+/* Header Styling */
+.app-header {
+    background: linear-gradient(135deg, #0f172a, #0369a1) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 0.65rem 0 !important;
+    color: #ffffff !important;
+    text-shadow: none !important;
+}
+
+.emergency-header {
+    background: linear-gradient(135deg, #881337, #e11d48) !important;
+}
+
+.header-title {
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
+    font-size: 1.15rem !important;
+}
+
+.header-title span {
+    color: #38bdf8;
+}
+
+.header-icon-btn {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: none !important;
+    color: #ffffff !important;
+    border-radius: 50% !important;
+    margin-top: 4px !important;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-right: 0.5rem;
+    margin-top: 2px;
+}
+
+.header-action-btn {
+    background: rgba(255, 255, 255, 0.18) !important;
+    border: none !important;
+    color: #ffffff !important;
+    border-radius: 10px !important;
+    padding: 0.3rem 0.6rem !important;
+    font-size: 0.95rem !important;
+    text-shadow: none !important;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+/* Content Container */
+.app-content {
+    background-color: var(--bg-canvas) !important;
+    padding: 1rem 1rem 4.5rem !important;
+}
+
+/* Patient Welcome Card */
+.welcome-card {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: #ffffff;
+    padding: 1.35rem 1.15rem;
+    border-radius: 20px;
+    margin-bottom: 1.1rem;
+    box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.4);
+}
+
+.welcome-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.status-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 20px;
+    margin-bottom: 0.4rem;
+}
+
+.welcome-top h2 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.25;
+}
+
+.heart-pulse-icon {
+    font-size: 2.2rem;
+    animation: pulseHeart 1.5s infinite;
+}
+
+@keyframes pulseHeart {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+/* Vitals Strip */
+.vitals-grid {
+    margin-top: 1rem;
+    background: rgba(0, 0, 0, 0.18);
+    border-radius: 14px;
+    padding: 0.65rem 0.4rem;
+    text-align: center;
+}
+
+.vital-tile {
+    padding: 0 0.2rem;
+}
+
+.v-label {
+    display: block;
+    font-size: 0.65rem;
+    color: #e0f2fe;
+    font-weight: 600;
+}
+
+.v-num {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.v-num span {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #bae6fd;
+}
+
+/* AI Symptom Checker Card */
+.symptom-checker-card {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border: 1px solid #bfdbfe;
+    border-radius: 16px;
+    padding: 0.95rem 1rem;
+    margin-bottom: 1.1rem;
+    box-shadow: 0 3px 10px rgba(59, 130, 246, 0.08);
+}
+
+.sc-badge {
+    display: inline-block;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    margin-bottom: 0.35rem;
+}
+
+.symptom-checker-card h3 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #1e3a8a;
+}
+
+.symptom-checker-card p {
+    font-size: 0.75rem;
+    color: #3b82f6;
+    margin: 0.25rem 0 0.65rem;
+}
+
+.sc-btn {
+    background: #2563eb !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    border: none !important;
+    border-radius: 10px !important;
+    text-shadow: none !important;
+    font-size: 0.75rem !important;
+    margin: 0 !important;
+}
+
+/* Emergency Bar */
+.emergency-bar {
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    border-radius: 14px;
+    padding: 0.75rem 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.emergency-info {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.emergency-info strong {
+    font-size: 0.85rem;
+    color: #be123c;
+    display: block;
+}
+
+.emergency-info p {
+    font-size: 0.7rem;
+    color: #881337;
+    margin: 0;
+}
+
+.sos-icon {
+    font-size: 1.6rem;
+}
+
+.sos-call-btn {
+    background: #e11d48 !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    border: none !important;
+    text-shadow: none !important;
+    border-radius: 10px !important;
+    padding: 0.45rem 0.85rem !important;
+    font-size: 0.75rem !important;
+}
+
+/* Section Title Row */
+.section-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.section-title-row h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.see-all-link {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--brand-primary);
+    text-decoration: none;
+}
+
+.live-tag {
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+}
+
+/* Department Grid */
+.department-grid .ui-block-a,
+.department-grid .ui-block-b,
+.department-grid .ui-block-c,
+.department-grid .ui-block-d {
+    padding: 0 0.25rem;
+}
+
+.dept-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 0.75rem 0.25rem;
+    text-decoration: none !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+    transition: transform 0.15s ease;
+}
+
+.dept-card:active {
+    transform: scale(0.95);
+    background: #f0fdfa;
+}
+
+.dept-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.3rem;
+}
+
+.dept-name {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Specialists Listview */
+.specialist-listview li a,
+#full-doctor-listview li a {
+    background: #ffffff !important;
+    border-color: #f1f5f9 !important;
+    padding: 0.85rem !important;
+    border-radius: 14px !important;
+    margin-bottom: 0.6rem !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03) !important;
+}
+
+.specialist-listview img,
+#full-doctor-listview img {
+    border-radius: 12px !important;
+    width: 68px !important;
+    height: 68px !important;
+    object-fit: cover !important;
+    top: 0.85rem !important;
+    left: 0.85rem !important;
+}
+
+.specialist-listview h2,
+#full-doctor-listview h2 {
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    color: var(--text-primary) !important;
+    margin-top: 0 !important;
+}
+
+.specialist-listview p,
+#full-doctor-listview p {
+    font-size: 0.75rem !important;
+    color: var(--text-muted) !important;
+    margin-bottom: 0 !important;
+}
+
+.specialist-listview .ui-li-count,
+#full-doctor-listview .ui-li-count {
+    background: #f0fdf4 !important;
+    color: #16a34a !important;
+    border: 1px solid #bbf7d0 !important;
+    font-weight: 800 !important;
+    font-size: 0.75rem !important;
+    border-radius: 20px !important;
+    padding: 0.25rem 0.55rem !important;
+}
+
+/* Category Filter Navbar */
+.dept-filter-navbar {
+    margin-bottom: 0.85rem;
+}
+
+.dept-filter-navbar a {
+    border-radius: 10px !important;
+    margin: 0 2px !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    padding: 0.55rem 0.25rem !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    color: var(--text-muted) !important;
+    text-shadow: none !important;
+}
+
+.dept-filter-navbar a.ui-btn-active {
+    background: var(--brand-primary) !important;
+    color: #ffffff !important;
+    border-color: var(--brand-primary) !important;
+}
+
+/* Side Panel */
+.side-panel {
+    background: #0f172a !important;
+    color: #ffffff !important;
+}
+
+.panel-user-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1.5rem 1rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar-med {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--brand-primary);
+    color: #fff;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.user-details h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.user-details p {
+    margin: 0.15rem 0 0;
+    font-size: 0.72rem;
+    color: #38bdf8;
+    font-weight: 600;
+}
+
+.panel-vitals-box {
+    margin: 1rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 0.75rem;
+}
+
+.vital-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    margin-bottom: 0.35rem;
+}
+
+.vital-item:last-child {
+    margin-bottom: 0;
+}
+
+.vital-label {
+    color: #94a3b8;
+}
+
+.panel-nav-list a {
+    background: transparent !important;
+    color: #e2e8f0 !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    text-shadow: none !important;
+}
+
+.panel-theme-toggle {
+    margin: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+.panel-theme-toggle button {
+    margin-top: 0.4rem !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+.panel-footer-note {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    color: #64748b;
+    font-size: 0.7rem;
+}
+
+/* Persistent Bottom Navbar */
+.app-footer {
+    background: #ffffff !important;
+    border-top: 1px solid #e2e8f0 !important;
+}
+
+.bottom-navbar a {
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-muted) !important;
+    font-weight: 600 !important;
+    font-size: 0.72rem !important;
+    text-shadow: none !important;
+}
+
+.bottom-navbar a.ui-btn-active {
+    color: var(--brand-primary) !important;
+}
+
+/* Booking Page Selected Doctor Card */
+.selected-doc-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.doc-mini-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #e0f2fe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.doc-mini-info h4 {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.doc-mini-info span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Form Card */
+.form-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.form-card h3 {
+    margin-top: 0;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 0.5rem;
+}
+
+.form-section-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+}
+
+/* Date Chips Row */
+.date-chips-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.date-chip-btn {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 0.5rem 0.2rem;
+    text-align: center;
+    font-size: 0.72rem;
+    cursor: pointer;
+    line-height: 1.3;
+}
+
+.date-chip-btn strong {
+    font-size: 0.85rem;
+    color: var(--text-primary);
+}
+
+.date-chip-btn.active {
+    background: #0284c7;
+    border-color: #0284c7;
+    color: #ffffff;
+}
+
+.date-chip-btn.active strong {
+    color: #ffffff;
+}
+
+/* Time Slot Pills Grid */
+.time-slots-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.8rem;
+}
+
+.time-slot-btn {
+    flex: 1 1 calc(33% - 0.4rem);
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.45rem 0.2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+}
+
+.time-slot-btn.active {
+    background: #0f766e;
+    border-color: #0f766e;
+    color: #ffffff;
+}
+
+.bill-summary {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 0.85rem;
+    margin: 1rem 0;
+    font-size: 0.82rem;
+}
+
+.bill-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+    color: var(--text-muted);
+}
+
+.bill-divider {
+    height: 1px;
+    background: #e2e8f0;
+    margin: 0.5rem 0;
+}
+
+.bill-row.total {
+    font-size: 0.98rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.book-action-btn {
+    background: var(--brand-primary) !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    padding: 0.85rem !important;
+    border-radius: 14px !important;
+    font-size: 0.95rem !important;
+    text-shadow: none !important;
+    box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35) !important;
+}
+
+/* Popups */
+.mobile-popup {
+    border-radius: 20px !important;
+    padding: 1.25rem !important;
+    max-width: 320px !important;
+}
+
+.doc-popup-header {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 0.85rem;
+}
+
+.doc-popup-img {
+    width: 65px;
+    height: 65px;
+    border-radius: 14px;
+    object-fit: cover;
+}
+
+.doc-popup-name {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 800;
+}
+
+.doc-popup-spec {
+    font-size: 0.75rem;
+    color: var(--brand-primary);
+    margin: 0.15rem 0;
+    font-weight: 700;
+}
+
+.doc-badge-pill {
+    font-size: 0.7rem;
+    background: #fef3c7;
+    color: #b45309;
+    padding: 0.1rem 0.4rem;
+    border-radius: 8px;
+    font-weight: 800;
+    display: inline-block;
+}
+
+.doc-popup-body {
+    padding: 0.85rem 0;
+    font-size: 0.8rem;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.45rem;
+}
+
+.detail-row span {
+    color: var(--text-muted);
+}
+
+.doc-book-btn {
+    background: var(--brand-primary) !important;
+    color: #fff !important;
+    font-weight: 800 !important;
+    text-shadow: none !important;
+    border-radius: 12px !important;
+    font-size: 0.85rem !important;
+    margin: 0.5rem 0 0 !important;
+}
+
+/* Symptom Checker Popup */
+.symptom-popup-header {
+    text-align: center;
+    margin-bottom: 0.8rem;
+}
+
+.symptom-popup-header .ai-sparkle {
+    font-size: 2rem;
+}
+
+.symptom-popup-header h3 {
+    margin: 0.2rem 0;
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+.symptom-popup-header p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.symptom-chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.85rem;
+}
+
+.symp-chip {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 0.4rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: all 0.15s ease;
+}
+
+.symp-chip.active {
+    background: #0284c7;
+    border-color: #0284c7;
+    color: #ffffff;
+}
+
+.triage-result-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 0.75rem;
+    font-size: 0.78rem;
+}
+
+.triage-level {
+    margin-bottom: 0.25rem;
+}
+
+/* Digital Boarding Pass */
+.booking-success-popup {
+    text-align: center;
+}
+
+.success-icon-med {
+    font-size: 2.8rem;
+    margin-bottom: 0.3rem;
+}
+
+.digital-boarding-pass {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 0.85rem 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.pass-header-strip {
+    background: #0f172a;
+    color: #ffffff;
+    padding: 0.55rem 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.token-code-tag {
+    color: #38bdf8;
+}
+
+.pass-body-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    padding: 0.85rem;
+    text-align: left;
+    font-size: 0.75rem;
+    border-bottom: 1px dashed #cbd5e1;
+}
+
+.p-sub {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+}
+
+.pass-qr-wrap {
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f8fafc;
+}
+
+.qr-svg-graphic {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 0.5rem;
+}
+
+.pass-barcode-lines {
+    text-align: center;
+}
+
+.barcode-graphic {
+    width: 140px;
+    height: 18px;
+    background: repeating-linear-gradient(90deg, #0f172a, #0f172a 2px, transparent 2px, transparent 4px, #0f172a 4px, #0f172a 7px, transparent 7px, transparent 9px);
+    margin: 0 auto 0.2rem;
+}
+
+.barcode-text {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    font-family: monospace;
+}
+
+.wallet-btn {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: none !important;
+    font-weight: 700 !important;
+    text-shadow: none !important;
+    border-radius: 12px !important;
+    font-size: 0.8rem !important;
+}
+
+/* Daily Pill Adherence Tracker on Records Page */
+.tracker-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+}
+
+.tracker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.tracker-header h4 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.tracker-percent {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #0284c7;
+}
+
+.progress-bar-container {
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 0.8rem;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #0284c7, #10b981);
+    transition: width 0.3s ease;
+}
+
+.med-checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.med-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.78rem;
+    background: #f8fafc;
+    padding: 0.5rem 0.65rem;
+    border-radius: 10px;
+    border: 1px solid #f1f5f9;
+    cursor: pointer;
+}
+
+.med-item.done {
+    text-decoration: line-through;
+    color: var(--text-muted);
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+/* Hydration Tracker Card */
+.water-card {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 16px;
+    padding: 0.85rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.water-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.water-icon {
+    font-size: 1.8rem;
+}
+
+.water-info h4 {
+    margin: 0;
+    font-size: 0.88rem;
+    color: #0369a1;
+}
+
+.water-info p {
+    margin: 0.15rem 0 0;
+    font-size: 0.72rem;
+    color: #0284c7;
+}
+
+.water-btn {
+    background: #0284c7 !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-size: 0.72rem !important;
+    text-shadow: none !important;
+}
+
+/* Digital ID Card on Records Page */
+.digital-id-card {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    color: #ffffff;
+    border-radius: 16px;
+    padding: 1.15rem;
+    margin-bottom: 1.1rem;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.4);
+}
+
+.id-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.id-org {
+    font-size: 0.68rem;
+    color: #38bdf8;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.id-top h4 {
+    margin: 0.2rem 0 0;
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+.chip-icon {
+    font-size: 2rem;
+}
+
+.id-meta {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: #94a3b8;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 0.65rem;
+}
+
+/* SOS Page Card & Ambulance Live Radar */
+.sos-card {
+    background: #ffffff;
+    border: 2px solid #fecdd3;
+    border-radius: 20px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(225, 29, 72, 0.12);
+    margin-bottom: 1.25rem;
+}
+
+.sos-pulse-ring {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    animation: ringShake 2s infinite ease-in-out;
+}
+
+@keyframes ringShake {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+}
+
+.sos-card h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #be123c;
+    font-weight: 800;
+}
+
+.sos-card p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0.4rem 0 1rem;
+}
+
+.call-now-btn {
+    background: #e11d48 !important;
+    border: none !important;
+    color: #fff !important;
+    font-weight: 800 !important;
+    padding: 0.85rem !important;
+    border-radius: 12px !important;
+    font-size: 0.95rem !important;
+    text-shadow: none !important;
+}
+
+.ambulance-live-radar {
+    background: #ffffff;
+    border: 2px solid #10b981;
+    border-radius: 20px;
+    padding: 1.15rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.radar-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.85rem;
+}
+
+.live-dot-pulse {
+    color: #059669;
+    font-size: 0.72rem;
+    font-weight: 800;
+}
+
+.radar-eta {
+    color: #0284c7;
+    font-size: 0.85rem;
+}
+
+.radar-body {
+    display: flex;
+    align-items: center;
+    gap: 0.95rem;
+    margin-bottom: 0.85rem;
+}
+
+.radar-vehicle-icon {
+    font-size: 2.5rem;
+}
+
+.radar-vehicle-details h4 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.radar-vehicle-details p {
+    margin: 0.15rem 0 0;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.radar-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.radar-actions button {
+    flex: 1;
+    margin: 0 !important;
+}
+
+/* Swipe Hint */
+.swipe-hint {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    margin-top: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+/* Dark Mode Theme Classes */
+body.dark-mode {
+    background-color: #030712 !important;
+}
+
+body.dark-mode .mobile-page {
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
+}
+
+body.dark-mode .app-content {
+    background-color: #0f172a !important;
+}
+
+body.dark-mode .app-footer,
+body.dark-mode .form-card,
+body.dark-mode .tracker-card,
+body.dark-mode .selected-doc-card,
+body.dark-mode .dept-card,
+body.dark-mode .specialist-listview li a,
+body.dark-mode #full-doctor-listview li a,
+body.dark-mode .mobile-popup,
+body.dark-mode .sos-card,
+body.dark-mode .ambulance-live-radar {
+    background-color: #1e293b !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #f8fafc !important;
+}
+
+body.dark-mode .section-title-row h3,
+body.dark-mode .specialist-listview h2,
+body.dark-mode #full-doctor-listview h2,
+body.dark-mode .doc-mini-info h4,
+body.dark-mode .form-card h3,
+body.dark-mode .bill-row.total,
+body.dark-mode .radar-vehicle-details h4,
+body.dark-mode .dept-name {
+    color: #f8fafc !important;
+}
+
+body.dark-mode .bill-summary,
+body.dark-mode .triage-result-card,
+body.dark-mode .date-chip-btn,
+body.dark-mode .time-slot-btn,
+body.dark-mode .med-item {
+    background-color: #0f172a !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #e2e8f0 !important;
+}
+
+body.dark-mode .date-chip-btn strong {
+    color: #ffffff !important;
+}

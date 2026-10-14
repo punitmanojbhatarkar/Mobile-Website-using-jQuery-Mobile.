@@ -1,0 +1,19 @@
+{
+  "name": "pulsecare-jquery-mobile",
+  "version": "1.0.0",
+  "description": "PulseCare: Smart Healthcare & Doctor Booking Mobile Web App using jQuery Mobile - FSD Practical Assignment 6",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "jquery-mobile",
+    "healthcare",
+    "doctor-booking",
+    "mobile-website",
+    "touch-ui",
+    "fsd"
+  ],
+  "author": "Punit Bhatarkar",
+  "license": "ISC"
+}
